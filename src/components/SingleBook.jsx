@@ -26,8 +26,7 @@ class SingleBook extends Component {
         <Card.Body>
           <Card.Title className="title">{book.title}</Card.Title>
           <Card.Text>
-            Some quick example text to build on the card title and make up the
-            bulk of the cards content.
+            <div>{book.price}</div>
           </Card.Text>
           <Button className="m-2 btn-success" variant="primary">
             Prenota
