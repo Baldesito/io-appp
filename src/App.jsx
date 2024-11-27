@@ -45,6 +45,41 @@ class App extends Component {
         price: 13.73,
         category: "horror",
       },
+      {
+        asin: "156975599X",
+        title: "Patriots: A Novel of Survival in the Coming Collapse",
+        img: "https://images-na.ssl-images-amazon.com/images/I/51REczj2RJL.jpg",
+        price: 14.0,
+        category: "horror",
+      },
+      {
+        asin: "0735219257",
+        title: "A Delicate Touch (A Stone Barrington Novel)",
+        img: "https://images-na.ssl-images-amazon.com/images/I/91FAwkAWvRL.jpg",
+        price: 14.94,
+        category: "horror",
+      },
+      {
+        asin: "1597808709",
+        title: "A Second Chance: The Chronicles of St. Mary's Book Three",
+        img: "https://images-na.ssl-images-amazon.com/images/I/714wSBJshRL.jpg",
+        price: 9.86,
+        category: "horror",
+      },
+      {
+        asin: "0804178801",
+        title: "Night School",
+        img: "https://images-na.ssl-images-amazon.com/images/I/51nRytR2rbL.jpg",
+        price: 13.25,
+        category: "horror",
+      },
+      {
+        asin: "1730921825",
+        title: "Crime and Punishment",
+        img: "https://images-na.ssl-images-amazon.com/images/I/413%2BcSdz6bL.jpg",
+        price: 8.16,
+        category: "horror",
+      },
     ],
   };
 
