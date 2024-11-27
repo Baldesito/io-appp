@@ -18,19 +18,19 @@ class ReservationForm extends Component {
       numberOfPeople: "1",
       smoking: false,
       dateTime: "",
-      specialRequests: ""
+      specialRequests: "",
     },
     // porzione di stato che gestisce l'alert
     alert: {
       isVisible: false,
       type: "",
       title: "",
-      message: ""
-    }
+      message: "",
+    },
   };
 
   //  metodo chiamato se avviene l'invio del form
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
 
     // chiamata HTTP per la creazione di una nuova risorsa a partire dallo stato reservation NEL MOMENTO DELL'INVIO DEL FORM
@@ -39,10 +39,10 @@ class ReservationForm extends Component {
       method: "POST",
       body: JSON.stringify(this.state.reservation),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(resp => {
+      .then((resp) => {
         if (resp.ok) {
           // se l'invio è andato a buon fine possiamo resettare il form
           this.handleReset();
@@ -53,23 +53,35 @@ class ReservationForm extends Component {
           throw new Error("Creazione fallita");
         }
       })
-      .then(savedReservation => {
+      .then((savedReservation) => {
         // con i dati ricevuti dal server andiamo a fornire i dati necessari all'alert per visualizzarsi
         this.setState({
           alert: {
             isVisible: true,
             type: "success",
             title: "Prenotazione inviata!",
-            message: `${savedReservation.name} ha prenotato per ${savedReservation.numberOfPeople} ${savedReservation.smoking ? "e ci sono fumatori" : ""} ${
-              savedReservation.specialRequests ? ", richieste particolari: " + savedReservation.specialRequests : ""
-            }. Arrivo previsto: ${new Date(savedReservation.dateTime).toLocaleString()}`
-          }
+            message: `${savedReservation.name} ha prenotato per ${
+              savedReservation.numberOfPeople
+            } ${savedReservation.smoking ? "e ci sono fumatori" : ""} ${
+              savedReservation.specialRequests
+                ? ", richieste particolari: " + savedReservation.specialRequests
+                : ""
+            }. Arrivo previsto: ${new Date(
+              savedReservation.dateTime
+            ).toLocaleString()}`,
+          },
         });
 
         // dopo 5 secondi l'alert verrà chiuso e resettato
-        setTimeout(() => this.setState({ alert: { isVisible: false, type: "", title: "", message: "" } }), 5000);
+        setTimeout(
+          () =>
+            this.setState({
+              alert: { isVisible: false, type: "", title: "", message: "" },
+            }),
+          5000
+        );
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
 
         this.setState({
@@ -77,18 +89,26 @@ class ReservationForm extends Component {
             isVisible: true,
             type: "danger",
             title: "Invio fallito",
-            message: err.message
-          }
+            message: err.message,
+          },
         });
 
-        setTimeout(() => this.setState({ alert: { isVisible: false, type: "", title: "", message: "" } }), 5000);
+        setTimeout(
+          () =>
+            this.setState({
+              alert: { isVisible: false, type: "", title: "", message: "" },
+            }),
+          5000
+        );
       });
   };
 
   // funzione associata a tutti i campi input che agisce in modo dinamico nel modificare una proprietà con un determinato valore,
   //  proprietà e valore dinamico li forniamo nel momento dell'esecuzione di questa funzione (ovvero su ogni onChange di ogni input)
   handleChange = (propertyName, propertyValue) => {
-    this.setState({ reservation: { ...this.state.reservation, [propertyName]: propertyValue } });
+    this.setState({
+      reservation: { ...this.state.reservation, [propertyName]: propertyValue },
+    });
   };
 
   // funzione che gestisce il reset del form
@@ -101,8 +121,8 @@ class ReservationForm extends Component {
         numberOfPeople: "1",
         smoking: false,
         dateTime: "",
-        specialRequests: ""
-      }
+        specialRequests: "",
+      },
     });
   };
   //   in react un Form o un qualsiasi input va reso CONTROLLED (controllato dallo stato)
@@ -110,14 +130,22 @@ class ReservationForm extends Component {
   render() {
     return (
       <Container>
-        <h2 className="display-5 text-center mt-5">Prenota un tavolo</h2>
+        <h2 className="display-5 text-center mt-5 ">Prenota un Libro</h2>
         {this.state.alert.isVisible && (
-          <Alert variant={this.state.alert.type} onClose={() => this.setState({ alert: { isVisible: false, type: "", title: "", message: "" } })} dismissible>
+          <Alert
+            variant={this.state.alert.type}
+            onClose={() =>
+              this.setState({
+                alert: { isVisible: false, type: "", title: "", message: "" },
+              })
+            }
+            dismissible
+          >
             <Alert.Heading>{this.state.alert.title}</Alert.Heading>
             <p>{this.state.alert.message}</p>
           </Alert>
         )}
-        <Row className="justify-content-center">
+        <Row className="justify-content-center mb-4">
           <Col xs={10} md={8} xl={6}>
             <Form onSubmit={this.handleSubmit}>
               <Form.Group className="mb-3" controlId="name">
@@ -128,7 +156,7 @@ class ReservationForm extends Component {
                   //   per avere un input CONTROLLATO abbiamo bisogno che possa LEGGERE dallo stato con la prop value e SCRIVERE tramite evento onChange
                   value={this.state.reservation.name} // leggiamo dallo stato
                   //   onChange={e => this.setState({ reservation: { ...this.state.reservation, name: e.target.value } })} // scriviamo nello stato col valore attuale
-                  onChange={e => this.handleChange("name", e.target.value)}
+                  onChange={(e) => this.handleChange("name", e.target.value)}
                   required
                 />
               </Form.Group>
@@ -139,17 +167,19 @@ class ReservationForm extends Component {
                   type="text"
                   placeholder="347xxxxxxx"
                   value={this.state.reservation.phone}
-                  onChange={e => this.handleChange("phone", e.target.value)}
+                  onChange={(e) => this.handleChange("phone", e.target.value)}
                   required
                 />
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="seats">
-                <Form.Label>Coperti</Form.Label>
+                <Form.Label>Numeri di Libri</Form.Label>
                 <Form.Select
                   aria-label="Number of seats"
                   value={this.state.reservation.numberOfPeople}
-                  onChange={e => this.handleChange("numberOfPeople", e.target.value)}
+                  onChange={(e) =>
+                    this.handleChange("numberOfPeople", e.target.value)
+                  }
                 >
                   <option value="1">One</option>
                   <option value="2">Two</option>
@@ -160,33 +190,15 @@ class ReservationForm extends Component {
                 </Form.Select>
               </Form.Group>
 
-              <Form.Group className="mb-3" controlId="smoking">
-                <Form.Check //prettier-ignore
-                  type="checkbox"
-                  label="Fumatori"
-                  checked={this.state.reservation.smoking}
-                  onChange={e => this.handleChange("smoking", e.target.checked)}
-                />
-              </Form.Group>
-
               <Form.Group className="mb-3" controlId="datetime">
                 <Form.Label>Data e ora</Form.Label>
                 <Form.Control
                   type="datetime-local"
                   value={this.state.reservation.dateTime}
-                  onChange={e => this.handleChange("dateTime", e.target.value)}
+                  onChange={(e) =>
+                    this.handleChange("dateTime", e.target.value)
+                  }
                   required
-                />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="specialrequests">
-                <Form.Label>Richieste particolari</Form.Label>
-                <Form.Control
-                  as="textarea"
-                  rows={3}
-                  placeholder="Intolleranze, allergie, ecc..."
-                  value={this.state.reservation.specialRequests}
-                  onChange={e => this.handleChange("specialRequests", e.target.value)}
                 />
               </Form.Group>
 
