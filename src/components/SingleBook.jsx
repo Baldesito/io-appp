@@ -29,8 +29,12 @@ class SingleBook extends Component {
             Some quick example text to build on the card title and make up the
             bulk of the cards content.
           </Card.Text>
-          <Button variant="primary">Go somewhere</Button>
-          <Button variant="primary">Go somewhere</Button>
+          <Button className="m-2 btn-success" variant="primary">
+            Prenota
+          </Button>
+          <Button className="m-2" variant="primary">
+            Leggi
+          </Button>
         </Card.Body>
       </Card>
     );
